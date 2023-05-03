@@ -1,42 +1,43 @@
 import java.util.Scanner;
 
+import Chess.Board;
+import Chess.Piece;
+import Chess.Position;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        Scanner sc = new Scanner(System.in);
-        
-        System.out.print("Start the game press except q: ");
-        String s = sc.nextLine();
+        try (Scanner sc = new Scanner(System.in)) {
+            Board board = new Board();
 
-        Board board = new Board();
+            do {
+                System.out.print("\033\143");
+                System.out.flush();
 
-        while(s.charAt(0) != 'q') {
-            System.out.print("\033\143");
-            System.out.flush();
+                board.getBoardCurrentPosition();
 
-            board.getBoardCurrentPosition();
+                try {
+                    System.out.println();
+                    System.out.print("Get piece: ");
+                    
+                    String s = sc.nextLine();
+                    Position position = new Position(s.charAt(1), s.charAt(0));
 
-            try {
-                System.out.println();
-                System.out.print("Get piece: ");
-                
-                s = sc.nextLine();
-                Piece piece = board.getSpot(s.charAt(1), s.charAt(0)).getPiece();
-                System.out.println(piece.getName());
-                System.out.println(piece.getColor());
+                    Piece piece = board.getSpot(position).getPiece();
 
-                System.out.println();
-                System.out.print("Set Target: ");
-                s = sc.nextLine();
+                    System.out.println(piece.toString());
+                    System.out.println(piece.getColor()); 
+                    System.out.println((piece.getMoves(board)));
 
-                board.setTaget(s.charAt(1), s.charAt(0), piece);
+                    System.out.println();
+                    System.out.print("Set Target: ");
+                    s = sc.nextLine();
 
-            } catch(Exception e) {
-                System.out.println(e.getMessage());
-            }
-            
+                    board.setTarget(new Position(s.charAt(1), s.charAt(0)), piece);
 
-            // System.out.println(board.setTaget(s.charAt(1), s.charAt(0)).putPiece(null););
-
+                } catch(Exception e) {
+                    System.out.println(e);
+                }
+            } while(true);
         }
     }
 }

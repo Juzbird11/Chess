@@ -1,33 +1,25 @@
+package Chess;
+
 public class Spot {
     private Piece piece;
-    private int x;
-    private int y;
-
-    public Spot(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
 
     public String getSpot() {
-        return (this.x % 2 == this.y % 2) ? "+" : "-";
-    }
-
-    public Piece getOccupyingPiece() {
-        return piece;
+        return "\u2661";
     }
 
     public String getSpotPiece() {
         if (piece == null) {
             return getSpot();
         }
-        return piece.getName();
+
+        return piece.toString();
     }
 
     public Piece getPiece() {
         return piece != null ? piece : null;
     }
 
-    public void putPiece(Piece piece) {
+    public void setPiece(Piece piece) {
         this.piece = piece;
     }
 
